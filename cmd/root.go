@@ -11,7 +11,6 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var (
-	cfgFile string
 	rootCmd = &cobra.Command{
 		Use:   "bae.ly",
 		Short: "bae.ly is a URLBae CLI",
