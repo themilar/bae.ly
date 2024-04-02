@@ -14,13 +14,9 @@ import (
 // authCmd represents the auth command
 var authCmd = &cobra.Command{
 	Use:   "auth",
-	Short: "provide your API key",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Provide your API key to make requests",
+	Long: `This command allows you to authenticate requests using your api key/token.
+get the token by signing up at https://urlbae.com/developers and provide it to this command to authenticate subsequent requests`,
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		// fmt.Println(args[0])
