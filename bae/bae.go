@@ -38,6 +38,9 @@ func Shorten(u string, exp int) string {
 			"expiry":"%s"
 		}`, u, expiry)))
 	}
+	if BASE_URL == "" {
+		BASE_URL = "https://urlbae.com/api/url/"
+	}
 	req, err := http.NewRequest("POST", BASE_URL+"add", body)
 	if err != nil {
 		log.Fatal(err)
