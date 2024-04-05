@@ -14,13 +14,10 @@ import (
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "print a list of links you've shortend",
+	Long: `This command prints out the five most recent links you've shortend by default
+you can modify this behaviour by providing a custom limit as an integer to the command.
+for example: 'bae list 10' returns the ten most recent links you shortened`,
 	Args: cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("list called")
