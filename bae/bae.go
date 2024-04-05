@@ -1,4 +1,4 @@
-package main
+package bae
 
 import (
 	"bytes"
@@ -138,15 +138,10 @@ func List(limit int) string {
 	if response.Error == 1 {
 		return response.Msg
 	}
-	prettyPrintStruct(fmt.Sprintf("%v", response.Data))
-	return fmt.Sprintf("%v", response.Data)
-
+	return prettyPrintStruct(fmt.Sprintf("%v", response.Data))
 }
 
-func main() {
-	List(5)
-}
-func prettyPrintStruct(obj interface{}) {
+func prettyPrintStruct(obj interface{}) string {
 	bytes, _ := json.MarshalIndent(obj, "\t", "\t")
-	fmt.Println(string(bytes))
+	return string(bytes)
 }
