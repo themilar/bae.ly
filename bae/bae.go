@@ -138,9 +138,15 @@ func List(limit int) string {
 	if response.Error == 1 {
 		return response.Msg
 	}
-	return fmt.Sprintf("%#v\n", response.Data)
+	prettyPrintStruct(fmt.Sprintf("%v", response.Data))
+	return fmt.Sprintf("%v", response.Data)
+
 }
 
 func main() {
-	fmt.Println(List(5))
+	List(5)
+}
+func prettyPrintStruct(obj interface{}) {
+	bytes, _ := json.MarshalIndent(obj, "\t", "\t")
+	fmt.Println(string(bytes))
 }
