@@ -23,14 +23,21 @@ type BaeShorten struct {
 
 var root, _ = homedir.Dir()
 
-func Shorten(u string) string {
+func Shorten(u string, exp int) string {
 	godotenv.Load(".env")
 	API_KEY := os.Getenv("API_KEY")
 	BASE_URL := os.Getenv("BASE_URL")
 	c := &http.Client{Timeout: time.Second * 10}
+	expiry := time.Now().Add(time.Duration(exp) * time.Hour).UTC()
 	body := bytes.NewBuffer([]byte(fmt.Sprintf(`{
 			"url":"%s"
 		}`, u)))
+	if exp != 0 {
+		body = bytes.NewBuffer([]byte(fmt.Sprintf(`{
+			"url":"%s",
+			"expiry":"%s"
+		}`, u, expiry)))
+	}
 	req, err := http.NewRequest("POST", BASE_URL+"add", body)
 	if err != nil {
 		log.Fatal(err)

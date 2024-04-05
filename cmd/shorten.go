@@ -19,18 +19,20 @@ var shortenCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		clipboard.Init()
-		// bae.Shorten()
-		for _, v := range args {
-			fmt.Println("shorten called", v)
-			shortLink := bae.Shorten(v)
-			clipboard.Write(clipboard.FmtText, []byte(shortLink))
-			fmt.Println(shortLink)
-		}
+		link := args[0]
+		exp, _ := cmd.Flags().GetInt("expiry")
+		fmt.Println("shorten called", link)
+		shortLink := bae.Shorten(link, exp)
+		clipboard.Write(clipboard.FmtText, []byte(shortLink))
+		fmt.Println(shortLink)
+		// for _, v := range args {
+		// }
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(shortenCmd)
+	shortenCmd.Flags().Int("expiry", 0, "set how long you want the link to be available (in hours)")
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
