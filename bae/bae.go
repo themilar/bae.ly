@@ -67,11 +67,13 @@ func Auth(token string) {
 	var key string
 	if file, err := os.ReadFile(root + "/.baerc"); err == nil {
 		content := strings.Split(string(file), "\n")
-		if len(content) > 1 {
+		if len(content) > 1 && token != content[1] {
+			key = token
+			os.WriteFile(root+"/.baerc", []byte("API_KEY\n"+token), 0644)
+		} else {
 			key = content[1]
-			fmt.Println(key)
 		}
-
+		fmt.Println(key)
 	}
 	_ = os.WriteFile(root+"/.baerc", []byte("API_KEY\n"+token), 0644)
 
