@@ -1,4 +1,4 @@
-package bae
+package main
 
 import (
 	"bytes"
@@ -19,6 +19,18 @@ type BaeShorten struct {
 	Id       string `json:"id"`
 	ShortUrl string `json:"shortUrl"`
 	Msg      string `json:"message"`
+}
+type url struct {
+	Id       int
+	Longurl  string
+	Shorturl string
+}
+type BaeList struct {
+	Error int `json:"error"`
+	Data  struct {
+		Url []url `json:"urls"`
+	} `json:"data"`
+	Msg string `json:"message"`
 }
 
 var root, _ = homedir.Dir()
@@ -87,4 +99,48 @@ func Auth(token string) {
 	}
 	_ = os.WriteFile(root+"/.baerc", []byte("API_KEY\n"+token), 0644)
 
+}
+func List(limit int) string {
+	godotenv.Load(".env")
+	API_KEY := os.Getenv("API_KEY")
+	BASE_URL := os.Getenv("BASE_URL")
+	c := &http.Client{Timeout: time.Second * 10}
+	if BASE_URL == "" {
+		BASE_URL = "https://urlbae.com/api/urls?"
+	}
+	req, err := http.NewRequest("GET", fmt.Sprintf(BASE_URL+"limit=%d&page=1&order=date", limit), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if API_KEY == "" {
+		file, err := os.ReadFile(root + "/.baerc")
+		if err != nil {
+			log.Fatal("provide your api key using the \"auth\" command")
+		}
+		content := string(file)
+		API_KEY = strings.Split(content, "\n")[1]
+	}
+	req.Header.Add("Authorization", "Bearer "+API_KEY)
+	req.Header.Add("Content-Type", "application/json")
+
+	res, err := c.Do(req)
+	if err != nil {
+		log.Fatal("request failed")
+	}
+	defer res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		fmt.Println("request error")
+	}
+	var response BaeList
+	if err := json.NewDecoder(res.Body).Decode(&response); err != nil {
+		fmt.Println(err)
+	}
+	if response.Error == 1 {
+		return response.Msg
+	}
+	return fmt.Sprintf("%v", response.Data)
+}
+
+func main() {
+	List(5)
 }
