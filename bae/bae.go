@@ -138,9 +138,9 @@ func List(limit int) string {
 	if response.Error == 1 {
 		return response.Msg
 	}
-	return fmt.Sprintf("%v", response.Data)
+	return fmt.Sprintf("%#v\n", response.Data)
 }
 
 func main() {
-	List(5)
+	fmt.Println(List(5))
 }
