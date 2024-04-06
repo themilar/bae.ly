@@ -14,9 +14,7 @@ var (
 	rootCmd = &cobra.Command{
 		Use:   "bae",
 		Short: "bae is a URLBae CLI",
-		Long: `This is a command line application for shortening links.
-bae shorten <link> 
-and it gives users the option to set the time when links expire
+		Long: `This is a command line application for shortening and managing URLS.
 `,
 		// Uncomment the following line if your bare application
 		// has an action associated with it:

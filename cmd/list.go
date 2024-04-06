@@ -24,8 +24,9 @@ for example: 'bae list 10' returns the ten most recent links you shortened`,
 		var limit int
 		if len(args) < 1 {
 			limit = 5
+		} else {
+			limit, _ = strconv.Atoi(args[0])
 		}
-		limit, _ = strconv.Atoi(args[0])
 		if limit < 1 {
 			fmt.Print("limit must be a positive integer")
 			return

@@ -15,8 +15,9 @@ import (
 var shortenCmd = &cobra.Command{
 	Use:   "shorten",
 	Short: "shorten links",
-	Long:  `This command accepts a single "long" link, shortens it and copies the resulting "short" link to the clipboard`,
-	Args:  cobra.ExactArgs(1),
+	Long: `This command accepts a single "long" link, shortens it and copies the resulting "short" link to the clipboard
+it also provides the option to set how long a link is available through the 'expiry' flag`,
+	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		clipboard.Init()
 		link := args[0]
