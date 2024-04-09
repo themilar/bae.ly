@@ -14,7 +14,7 @@ import (
 // authCmd represents the auth command
 var authCmd = &cobra.Command{
 	Use:   "auth",
-	Short: "Provide your API key to make requests",
+	Short: "Authenticate requests using your API key",
 	Long: `This command allows you to authenticate requests using your api key/token.
 get the token by signing up at https://urlbae.com/developers and provide it to this command to authenticate subsequent requests`,
 	Args: cobra.ExactArgs(1),

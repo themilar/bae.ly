@@ -14,7 +14,7 @@ import (
 // shortenCmd represents the shorten command
 var shortenCmd = &cobra.Command{
 	Use:   "shorten",
-	Short: "shorten links",
+	Short: "Shorten links",
 	Long: `This command accepts a single "long" link, shortens it and copies the resulting "short" link to the clipboard
 it also provides the option to set how long a link is available through the 'expiry' flag`,
 	Args: cobra.ExactArgs(1),

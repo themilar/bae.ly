@@ -14,7 +14,7 @@ import (
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "print a list of links you've shortend",
+	Short: "List links you've shortend",
 	Long: `This command prints out the five most recent links you've shortend by default
 you can modify this behaviour by providing a custom limit as an integer to the command.
 for example: 'bae list 10' returns the ten most recent links you shortened`,
